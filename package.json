@@ -1,5 +1,5 @@
 {
-  "name": "pokedex",
+  "name": "document-creator",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,15 +9,46 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "sass": "^1.86.1",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "@tiptap/extension-color": "^2.6.6",
+    "@tiptap/extension-font-family": "^2.6.6",
+    "@tiptap/extension-highlight": "^2.2.6",
+    "@tiptap/extension-image": "^2.6.6",
+    "@tiptap/extension-link": "^2.6.6",
+    "@tiptap/extension-placeholder": "^2.2.6",
+    "@tiptap/extension-table": "^2.6.6",
+    "@tiptap/extension-table-cell": "^2.6.6",
+    "@tiptap/extension-table-header": "^2.6.6",
+    "@tiptap/extension-table-row": "^2.6.6",
+    "@tiptap/extension-text-align": "^2.2.6",
+    "@tiptap/extension-text-style": "^2.6.6",
+    "@tiptap/extension-typography": "^2.6.6",
+    "@tiptap/extension-underline": "^2.3.0",
+    "@tiptap/pm": "^2.2.5",
+    "@tiptap/starter-kit": "^2.2.5",
+    "@tiptap/vue-3": "^2.2.5",
+    "axios": "^1.6.7",
+    "fontkit": "^2.0.4",
+    "html2canvas": "^1.4.1",
+    "interactjs": "^1.10.27",
+    "konva": "^9.3.16",
+    "pdf-lib": "^1.17.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "vue": "^3.5.12",
+    "vue-chart-3": "^3.1.8",
+    "vue-i18n": "^9.14.1",
+    "vue-konva": "^3.1.2",
+    "vue-router": "^4.4.5",
+    "vue3-dnd": "^2.1.0",
+    "vue3-pdf-app": "^1.0.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.3",
-    "@vue/tsconfig": "^0.7.0",
-    "typescript": "~5.7.2",
-    "vite": "^6.2.0",
-    "vue-tsc": "^2.2.4"
+    "@types/fontkit": "^2.0.7",
+    "@types/node": "^22.8.1",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "sass": "^1.70.0",
+    "sass-loader": "^14.1.0",
+    "typescript": "~5.6.2",
+    "vite": "^5.4.9",
+    "vue-tsc": "^2.1.6"
   }
 }
