@@ -9,8 +9,11 @@
     <p class="home__description">
       The digital encyclopedia created by Andres Diaz is an invaluable tool to Trainers in the Pokémon world.
     </p>
-    <button class="home__button btn-red">Get started</button>
+    <button class="home__button btn-red" @click="dataHome.redirectToSearch">Get started</button>
   </main>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props :any = defineProps(['dataHome']);
+
+</script>
 <style scoped src="./Home.template.scss"></style>

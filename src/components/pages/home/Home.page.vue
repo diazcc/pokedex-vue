@@ -1,5 +1,5 @@
 <template>
-  <HomeTemplate />
+  <HomeTemplate :dataHome="dataHome" />
 </template>
 <script setup lang="ts">
 import {
@@ -11,7 +11,18 @@ import {
   Ref,
   watch,
 } from "vue";
-import HomeTemplate from "../templates/Home.template.vue";
-</script>
+import HomeTemplate from "../../templates/home/Home.template.vue";
+import { useRouter } from "vue-router";
+const router: any = useRouter();
+const dataHome: any = reactive({
+  isLoading: false,
+  redirectToSearch: () => {
+    redirectToSearch();
+  },
+});
 
+function redirectToSearch() {
+  router.push('/search');
+}
+</script>
 <style scoped></style>

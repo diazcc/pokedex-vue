@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 const Home = () => import('./components/pages/home/Home.page.vue');
 import HomePage from './components/pages/home/Home.page.vue';
+import SearchPage from './components/pages/search/Search.page.vue';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -9,6 +10,10 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/home',
     component: HomePage,
+  },
+  {
+    path: '/search',
+    component: SearchPage,
   },
   {
     path: '/:pathMatch(.*)*',
