@@ -21,6 +21,6 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/components/atoms/editor-text/extensions/InputNode.js"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "!src/components/pages/templates/Home.template copy.vue", "src/components/atoms/editor-text/extensions/InputNode.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

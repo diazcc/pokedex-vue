@@ -1,0 +1,49 @@
+.home {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  box-sizing: border-box;
+  &__icon {
+    width: min-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 35%;
+
+    &__bg {
+      margin-top: 21%;
+      margin-right: 6%;
+      background-color: red;
+      width: 60%;
+      height: 60%;
+      border-radius: 50%;
+      max-height: 300px;
+      border: 2px solid #000;
+      position: absolute;
+      z-index: 1;
+    }
+    &__img {
+      z-index: 2;
+      object-fit: contain;
+    }
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    color: #000;
+  }
+  &__description {
+    font-size: 1.2rem;
+    text-align: center;
+    color: #000;
+    width: 35%;
+    min-width:22rem;
+  }
+}

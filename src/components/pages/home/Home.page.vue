@@ -1,7 +1,5 @@
-
 <template>
-  <h1>OLA</h1>
- 
+  <HomeTemplate />
 </template>
 <script setup lang="ts">
 import {
@@ -13,9 +11,7 @@ import {
   Ref,
   watch,
 } from "vue";
-
-
-
+import HomeTemplate from "../templates/Home.template.vue";
 </script>
 
 <style scoped></style>
