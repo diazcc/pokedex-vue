@@ -50,6 +50,24 @@
                 width: 100%;
                 padding: 0.5rem 1rem;
             }
+            &__nodata {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                gap: 0.5rem;
+                &__title {
+                    font-size: 1.5rem;
+                    width: 100%;
+                    padding: 0.5rem 1rem;
+                }
+                &__message {
+                    font-size: 1.2rem;
+                    width: 100%;
+                    padding: 0.5rem 1rem;
+                }
+            }
 
             &__fav {
                 margin: 0.5rem;

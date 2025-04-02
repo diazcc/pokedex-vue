@@ -12,8 +12,12 @@
       </a>
     </nav>
     <ul class="search__results limit-horizontal">
-      <li class="search__results__option" v-if="visibleResults.length === 0">
-        <p class="search__results__option__name">No data</p>
+      <li class="search__results__option__nodata" v-if="visibleResults.length === 0">
+        <h2 class="search__results__option__nodata__title">Uh, oh!</h2>
+        <p class="search__results__option__nodata__message">You look lost on your journey!</p>
+        <button class="btn-red" @click="dataSearch.cleanData">
+          Go back home
+        </button>
       </li>
       <li
         class="search__results__option"

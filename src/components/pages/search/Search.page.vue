@@ -37,6 +37,9 @@ const dataSearch: any = reactive({
   openPokemon: (name: any) => {
     openCardPokemon(name);
   },
+  cleanData:()=>{
+    loadAllPokemons()
+  }
 });
 
 onMounted(() => {
@@ -44,11 +47,14 @@ onMounted(() => {
 });
 
 function loadAllPokemons() {
+  dataSearch.listAll = true;
+  dataSearch.listFav = false;
   pokemonApi
     .getAllPokemons()
     .then((response: any) => {
+      dataSearch.arrayResultList =[];
       allPokemons.value = response.results;
-      dataSearch.arrayResultList = response.results;
+      dataSearch.arrayResultList = allPokemons.value;
     })
     .catch((error: any) => {
       console.error("Error al cargar la lista de Pokémon:", error);
