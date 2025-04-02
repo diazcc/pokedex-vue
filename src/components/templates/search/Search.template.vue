@@ -2,7 +2,7 @@
   <main class="search">
     <nav class="search__navbar limit-horizontal">
       <a class="search__navbar__search">
-        <img src="/src/assets/images/lupa.svg" alt="" />
+        <img src="/images/lupa.svg" alt="" />
         <input
           type="text"
           @input="props.dataSearch.inputSearch.onChange"
@@ -36,8 +36,8 @@
           class="search__results__option__fav icon__star"
           :src="
             pokemonStore.favorites.some((fav) => fav.name === pokemon.name)
-              ? '/src/assets/images/star-yellow.svg'
-              : '/src/assets/images/star-gray.svg'
+              ? '/images/star-yellow.svg'
+              : '/images/star-gray.svg'
           "
           alt="Favorito"
           @click="pokemonStore.toggleFavorite(pokemon)"
@@ -50,14 +50,14 @@
           class="search__footer__container__btn btn-red"
           @click="dataSearch.setAll"
         >
-          <img src="/src/assets/images/list-white.svg" alt="" />
+          <img src="/images/list-white.svg" alt="" />
           <p>All</p>
         </button>
         <button
           class="search__footer__container__btn btn-gray"
           @click="dataSearch.setFav"
         >
-          <img src="/src/assets/images/star-white.svg" alt="" />
+          <img src="/images/star-white.svg" alt="" />
           <p>Favorites</p>
         </button>
       </nav>
@@ -66,7 +66,7 @@
       :data-modal-card-pokemon="dataSearch.dataModalCardPokemon"
     />
     <section :class="'loader-view loader-view--' + (isLoading?'show':'hidde')">
-      <img class="loader-view__icon" src="/src/assets/images/pokemon.svg" alt="">
+      <img class="loader-view__icon" src="/images/pokemon.svg" alt="">
     </section>
   </main>
 </template>

@@ -3,7 +3,7 @@
     <section class="home__icon">
       <a class="home__icon__bg">
       </a>
-      <img src="/src/assets/images/pikachu.svg" alt="" class="home__icon__img">
+      <img src="/images/pikachu.svg" alt="" class="home__icon__img">
     </section>
     <h1 class="home__title">Welcome to Pokedex</h1>
     <p class="home__description">

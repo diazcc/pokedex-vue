@@ -12,20 +12,20 @@
       "
     >
       <img
-        src="/src/assets/images/close.svg"
+        src="/images/close.svg"
         class="card-pokemon-modal-background__container__close"
         @click="closeModal"
       />
 
       <a class="card-pokemon-modal-background__container__bg-image">
         <img
-          src="/src/assets/images/image.png"
+          src="/images/image.png"
           class="card-pokemon-modal-background__container__bg-image__bg"
           alt=""
         />
         <img
           :src="pokemonImage"
-          :class="'card-pokemon-modal-background__container__bg-image__pokemon ' + (pokemonImage =='/src/assets/images/random.png'?'loading-component':'') "
+          :class="'card-pokemon-modal-background__container__bg-image__pokemon ' + (pokemonImage =='/images/random.png'?'loading-component':'') "
           alt="Pokemon"
         />
       </a>
@@ -97,8 +97,8 @@
             pokemonStore.favorites.some(
               (fav:any) => fav.name === pokemonData?.name
             )
-              ? '/src/assets/images/star-yellow.svg'
-              : '/src/assets/images/star-gray.svg'
+              ? '/images/star-yellow.svg'
+              : '/images/star-gray.svg'
           "
           alt="Favorito"
           @click="pokemonStore.toggleFavorite(pokemonData)"
@@ -122,7 +122,7 @@ onUnmounted(() => {
 const pokemonImage = computed(() => {
   return pokemonData.value?.id
     ? `https://www.shinyhunters.com/images/shiny/${pokemonData.value.id}.gif`
-    : "/src/assets/images/random.png";
+    : "/images/random.png";
 });
 props.dataModalCardPokemon.searchPokemon = (pokemon: any) => {
   getPokemonData(pokemon);
@@ -131,7 +131,7 @@ props.dataModalCardPokemon.searchPokemon = (pokemon: any) => {
 function validateUrlImage() {
   return pokemonData.id
     ? `https://www.shinyhunters.com/images/shiny/${pokemonData.id}.gif`
-    : "/src/assets/images/random.png";
+    : "/images/random.png";
 }
 function closeModal() {
   props.dataModalCardPokemon.isActive = false;
