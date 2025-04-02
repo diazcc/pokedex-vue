@@ -11,27 +11,25 @@
     /* Ajusta la ruta y el formato según tu fuente */
 }
 @font-face {
-    font-family: 'Tangerinessr';
-    src: url('./assets/fonts/Tangerine-Regular.ttf') format('truetype');
+    font-family: "Tangerinessr";
+    src: url("./assets/fonts/Tangerine-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
-  }
-
-  
-@font-face {
-  font-family: 'Lato';
-  src: url('./assets/fonts/Lato-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
 }
 
 @font-face {
-  font-family: 'Brush';
-  src: url('./assets/fonts/Brush.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: "Lato";
+    src: url("./assets/fonts/Lato-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
 
+@font-face {
+    font-family: "Brush";
+    src: url("./assets/fonts/Brush.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
 
 /* GLOBAL VARIABLES */
 
@@ -312,7 +310,7 @@ select {
     padding: 0;
     border-radius: 0rem;
     border: none;
-    padding: 0.2rem;
+    border-radius: 0.5rem;
 }
 
 textarea {
@@ -387,7 +385,8 @@ button:disabled::after {
 .loading-component::after {
     content: "";
     background-image: linear-gradient(
-        rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.12) 50%,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.12) 50%,
         rgba(255, 255, 255, 0) 100%
     );
     transform: translate(-50%, -50%) rotate(-45deg);
@@ -486,7 +485,7 @@ button:disabled::after {
     animation: jump-empty 0.4s forwards;
 }
 
-.tooltip{
+.tooltip {
     position: absolute;
     visibility: hidden;
     z-index: 1;
@@ -501,8 +500,6 @@ button:disabled::after {
     opacity: 0;
     transition: opacity 0.5s;
 }
-
-
 
 .loader {
     img {
@@ -521,20 +518,35 @@ button:disabled::after {
     animation: spin 1s linear infinite;
 }
 
-
-.btn-red{
+.btn-red {
     background-color: $color-btn-red;
     border-radius: 4.5rem;
-    width: min-content;
     color: white;
     font-size: 1.2rem;
     padding: 0.7rem 1.5rem;
+    flex: 1;
+    max-height: 4rem;
 
-    &:hover{
+    &:hover {
         background-color: $color-btn-red-hover;
     }
-    
-    &:active{
+
+    &:active {
         background-color: $color-btn-red-active;
+    }
+}
+.btn-gray {
+    background-color: $color-btn-gray;
+    border-radius: 4.5rem;
+    color: white;
+    font-size: 1.2rem;
+    padding: 0.7rem 1.5rem;
+    flex: 1;
+    &:hover {
+        background-color: $color-btn-gray-hover;
+    }
+
+    &:active {
+        background-color: $color-btn-gray-active;
     }
 }
