@@ -58,7 +58,7 @@ function loadAllPokemons() {
 function getPokemonsByValue() {
   const value = dataSearch.inputSearch.value;
   if (!value) {
-    dataSearch.arrayResultList = allPokemons.value;
+    loadAllPokemons()
     return;
   }
   dataSearch.arrayResultList = allPokemons.value.filter((pokemon: any) =>
@@ -67,9 +67,10 @@ function getPokemonsByValue() {
 }
 
 function setAll() {
-  dataSearch.arrayResultList = allPokemons.value;
+  dataSearch.arrayResultList = [];
   dataSearch.listAll = true;
   dataSearch.listFav = false;
+  loadAllPokemons();
 }
 
 function setFav() {

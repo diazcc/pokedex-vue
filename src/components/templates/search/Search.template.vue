@@ -1,13 +1,15 @@
 <template>
   <main class="search">
     <nav class="search__navbar limit-horizontal">
-      <input
-        type="text"
-        @input="props.dataSearch.inputSearch.onChange"
-        v-model="props.dataSearch.inputSearch.value"
-        placeholder="Buscar Pokémon..."
-        class="search__navbar__search"
-      />
+      <a class="search__navbar__search">
+        <img src="/src/assets/images/lupa.svg" alt="" />
+        <input
+          type="text"
+          @input="props.dataSearch.inputSearch.onChange"
+          v-model="props.dataSearch.inputSearch.value"
+          placeholder="Search"
+        />
+      </a>
     </nav>
     <ul class="search__results limit-horizontal">
       <li class="search__results__option" v-if="visibleResults.length === 0">
@@ -20,8 +22,10 @@
         :key="pokemon.name"
         :ref="(el:any) => setPokemonItem(el, index)"
       >
-        <p class="search__results__option__name" 
-        @click="dataSearch.openPokemon(pokemon.name)">
+        <p
+          class="search__results__option__name"
+          @click="dataSearch.openPokemon(pokemon.name)"
+        >
           {{ capitalizeFirstLetter(pokemon.name) ?? "UNDEFINED" }}
         </p>
         <img
@@ -42,13 +46,15 @@
           class="search__footer__container__btn btn-red"
           @click="dataSearch.setAll"
         >
-          All
+          <img src="/src/assets/images/list-white.svg" alt="" />
+          <p>All</p>
         </button>
         <button
           class="search__footer__container__btn btn-gray"
           @click="dataSearch.setFav"
         >
-          Favorites
+          <img src="/src/assets/images/star-white.svg" alt="" />
+          <p>Favorites</p>
         </button>
       </nav>
     </footer>

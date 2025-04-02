@@ -24,10 +24,10 @@
           alt=""
         />
         <img
-  :src="pokemonImage"
-  class="card-pokemon-modal-background__container__bg-image__pokemon"
-  alt="Pokemon"
-/>
+          :src="pokemonImage"
+          :class="'card-pokemon-modal-background__container__bg-image__pokemon ' + (pokemonImage =='/src/assets/images/random.png'?'loading-component':'') "
+          alt="Pokemon"
+        />
       </a>
       <ul class="card-pokemon-modal-background__container__description">
         <li class="card-pokemon-modal-background__container__description__card">
@@ -36,7 +36,10 @@
             >Name:</label
           >
           <p
-            :class="'card-pokemon-modal-background__container__description__card__text '+ (pokemonData?.name ? '': 'loading-component')"
+            :class="
+              'card-pokemon-modal-background__container__description__card__text ' +
+              (pokemonData?.name ? '' : 'loading-component')
+            "
           >
             {{ capitalizeFirstLetter(pokemonData?.name) }}
           </p>
@@ -44,17 +47,50 @@
         <li class="card-pokemon-modal-background__container__description__card">
           <label
             class="card-pokemon-modal-background__container__description__card__title"
-            >Weight: </label
-          >
+            >Weight:
+          </label>
           <p
-            :class="'card-pokemon-modal-background__container__description__card__text '+ (pokemonData?.name ? ' ': 'loading-component')"
+            :class="
+              'card-pokemon-modal-background__container__description__card__text ' +
+              (pokemonData?.name ? ' ' : 'loading-component')
+            "
           >
-            {{pokemonData?.id  }}
+            {{ pokemonData?.weight }}
+          </p>
+        </li>
+        <li class="card-pokemon-modal-background__container__description__card">
+          <label
+            class="card-pokemon-modal-background__container__description__card__title"
+            >Heigh:
+          </label>
+          <p
+            :class="
+              'card-pokemon-modal-background__container__description__card__text ' +
+              (pokemonData?.name ? ' ' : 'loading-component')
+            "
+          >
+            {{ pokemonData?.height }}
+          </p>
+        </li>
+        <li class="card-pokemon-modal-background__container__description__card">
+          <label
+            class="card-pokemon-modal-background__container__description__card__title"
+            >Types:
+          </label>
+          <p
+            :class="
+              'card-pokemon-modal-background__container__description__card__text ' +
+              (pokemonData?.name ? ' ' : 'loading-component')
+            "
+          >
+            {{ pokemonData?.weight }}
           </p>
         </li>
       </ul>
       <nav class="card-pokemon-modal-background__container__nav">
-        <button class="btn-red" @click="copyToClipboard">Share friends</button>
+        <button class="btn-red" @click="copyToClipboard">
+          Share to my friends
+        </button>
         <img
           class="icon__star"
           :src="
@@ -73,13 +109,12 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted, watch, onUnmounted, computed } from "vue";
-import PokemonApi from "../../../services/PokemonApi"; 
+import PokemonApi from "../../../services/PokemonApi";
 import { usePokemonStore } from "../../../stores/pokemonStore";
 const pokemonStore: any = usePokemonStore();
-const pokemonData :any = ref<any>(null);
+const pokemonData: any = ref<any>(null);
 
-const props = defineProps(['dataModalCardPokemon']);
-
+const props = defineProps(["dataModalCardPokemon"]);
 
 onUnmounted(() => {
   clearData();
@@ -89,24 +124,27 @@ const pokemonImage = computed(() => {
     ? `https://www.shinyhunters.com/images/shiny/${pokemonData.value.id}.gif`
     : "/src/assets/images/random.png";
 });
-props.dataModalCardPokemon.searchPokemon = (pokemon:any) =>{
+props.dataModalCardPokemon.searchPokemon = (pokemon: any) => {
   getPokemonData(pokemon);
-  props.dataModalCardPokemon.isActive =true;
-}
-function  validateUrlImage() {
-  
-  console.log(pokemonData.id ? `https://www.shinyhunters.com/images/shiny/${pokemonData.id}.gif`: "/src/assets/images/random.png");
+  props.dataModalCardPokemon.isActive = true;
+};
+function validateUrlImage() {
+  console.log(
+    pokemonData.id
+      ? `https://www.shinyhunters.com/images/shiny/${pokemonData.id}.gif`
+      : "/src/assets/images/random.png"
+  );
   console.log(pokemonData);
   return pokemonData.id
     ? `https://www.shinyhunters.com/images/shiny/${pokemonData.id}.gif`
     : "/src/assets/images/random.png";
-};
+}
 function closeModal() {
   props.dataModalCardPokemon.isActive = false;
   pokemonData.value = null;
 }
 
-async function getPokemonData(pokemon:any) {
+async function getPokemonData(pokemon: any) {
   if (pokemon) {
     PokemonApi.getPokemon(pokemon)
       .then((response: any) => {
@@ -125,10 +163,10 @@ function clearData() {
 function capitalizeFirstLetter(word: string): string {
   console.log(word);
   console.log(typeof word);
-  
+
   if (word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
-  }else{
+  } else {
     return word;
   }
 }
@@ -140,9 +178,10 @@ function copyToClipboard() {
 
   const textToCopy = `Nombre: ${name}, Altura: ${height}, Peso: ${weight}, Habilidades: ${abilitiesList}`;
 
-  navigator.clipboard.writeText(textToCopy)
+  navigator.clipboard
+    .writeText(textToCopy)
     .then()
-    .catch(err => console.error("Error al copiar:", err));
+    .catch((err) => console.error("Error al copiar:", err));
 }
 watch(() => props.dataModalCardPokemon.pokemon.name, getPokemonData);
 watch(() => pokemonData, validateUrlImage);
