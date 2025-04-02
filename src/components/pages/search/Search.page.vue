@@ -3,9 +3,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import axios from "axios";
 import SearchTemplate from "../../templates/search/Search.template.vue";
+import PokemonApi from "../../../services/PokemonApi";
+let allPokemons: any = ref([]);
+const pokemonApi: any = PokemonApi;
 const dataSearch: any = reactive({
   inputSearch: {
     value: "",
@@ -25,19 +28,20 @@ const dataSearch: any = reactive({
   },
 });
 
-// Lista de todos los Pokémon cargada al inicio
-let allPokemons: { name: string; url: string }[] = [];
-
+onMounted(() => {
+  console.log("Search page mounted");
+  loadAllPokemons();
+});
 function loadAllPokemons() {
   console.log("ingresa");
-
-  axios
-    .get("https://pokeapi.co/api/v2/pokemon?limit=10000")
-    .then((response) => {
-      dataSearch.arrayResultList = response.data.results;
-      console.log("consulta", response.data.results);
+  pokemonApi
+    .getAllPokemons()
+    .then((response: any) => {
+      allPokemons.value = response.results;
+      dataSearch.arrayResultList = response.results;
+      console.log("consulta", allPokemons.value);
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.error("Error al cargar la lista de Pokémon:", error);
     });
 }
@@ -48,19 +52,11 @@ function getPokemonsByValue() {
     dataSearch.arrayResultList = [];
     return;
   }
-
-  // Buscar por ID exacto o nombre exacto
-  if (!isNaN(Number(value))) {
-    fetchPokemonByIdOrName(value);
-  } else {
-    // Filtrar nombres similares en la lista local
-    const filteredPokemons = allPokemons.filter((pokemon) =>
-      pokemon.name.includes(value.toLowerCase())
-    );
-
-    dataSearch.arrayResultList = filteredPokemons.slice(0, 10); // Limita a 10 resultados
-    console.log("Resultados filtrados:", dataSearch.arrayResultList);
-  }
+  const filteredPokemons = allPokemons.value.filter((pokemon: any) =>
+    pokemon.name.includes(value.toLowerCase())
+  );
+  console.log("Resultados filtrados:", filteredPokemons);
+  dataSearch.arrayResultList = filteredPokemons;
 }
 
 function fetchPokemonByIdOrName(value: string) {
@@ -76,9 +72,4 @@ function fetchPokemonByIdOrName(value: string) {
 
 function setAll() {}
 function setFav() {}
-
-onMounted(() => {
-  console.log("Search page mounted");
-  loadAllPokemons();
-});
 </script>

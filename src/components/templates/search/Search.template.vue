@@ -3,18 +3,24 @@
     <nav class="search__navbar limit-horizontal">
       <input
         type="text"
-        @input="dataSearch.inputSearch.onChange"
-        v-model="dataSearch.inputSearch.value"
-        placeholder="hola"
+        @input="props.dataSearch.inputSearch.onChange"
+        v-model="props.dataSearch.inputSearch.value"
+        placeholder="Buscar Pokémon..."
         class="search__navbar__search"
       />
     </nav>
     <ul class="search__results limit-horizontal">
-      <li class="search__results__option" v-if="dataSearch.arrayResultList.length <= 0" >
+      <li class="search__results__option" v-if="visibleResults.length == 0">
         <p class="search__results__option__name">No data</p>
       </li>
-      <li class="search__results__option" v-else v-for="(pokemon,index) in dataSearch.arrayResultList">
-        <p class="search__results__option__name">{{ pokemon.name ??  'UNDEFINED' }}</p>
+      <li
+        class="search__results__option"
+        v-else
+        v-for="(pokemon, index) in visibleResults"
+        :key="index"
+        ref="pokemonItems"
+      >
+        <p class="search__results__option__name">{{ pokemon.name ?? 'UNDEFINED' }}</p>
         <img class="search__results__option__star" src="/src/assets/images/star-gray.svg" alt="" />
       </li>
     </ul>
@@ -30,10 +36,61 @@
     </footer>
   </main>
 </template>
+
 <script setup lang="ts">
+import { ref, watch, onMounted, nextTick } from "vue";
+
+
+//Template variables
 const props = defineProps(["dataSearch"]);
-function write(data: any) {
-  console.log("write", data);
+const visibleResults = ref<any[]>([]);
+const itemsPerPage = 7;
+const currentIndex = ref(0);
+const pokemonItems = ref<HTMLElement[]>([]);
+
+function loadMore() {
+  if (currentIndex.value < props.dataSearch.arrayResultList.length) {
+    const nextItems = props.dataSearch.arrayResultList.slice(
+      currentIndex.value,
+      currentIndex.value + itemsPerPage
+    );
+    visibleResults.value.push(...nextItems);
+    currentIndex.value += itemsPerPage;
+    observeLastItem();
+  }
 }
+
+function observeLastItem() {
+  nextTick(() => {
+    if (pokemonItems.value.length >= 5) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            loadMore();
+          }
+        },
+        { rootMargin: "50px", threshold: 0.5 }
+      );
+      const antepenultimoIndex = pokemonItems.value.length - 3;
+      if (pokemonItems.value[antepenultimoIndex]) {
+        observer.observe(pokemonItems.value[antepenultimoIndex]);
+      }
+    }
+  });
+}
+
+watch(
+  () => props.dataSearch.arrayResultList,
+  () => {
+    visibleResults.value = [];
+    currentIndex.value = 0;
+    loadMore();
+  }
+);
+
+onMounted(() => {
+  loadMore();
+});
 </script>
+
 <style scoped src="./Search.template.scss"></style>
