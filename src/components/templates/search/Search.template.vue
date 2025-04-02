@@ -19,12 +19,13 @@
         v-for="(pokemon, index) in visibleResults"
         :key="pokemon.name"
         :ref="(el:any) => setPokemonItem(el, index)"
+        @click="dataSearch.openPokemon(pokemon.name)"
       >
         <p class="search__results__option__name">
           {{ capitalizeFirstLetter(pokemon.name) ?? "UNDEFINED" }}
         </p>
         <img
-          class="search__results__option__star"
+          class="icon__star"
           :src="
             pokemonStore.favorites.some((fav) => fav.name === pokemon.name)
               ? '/src/assets/images/star-yellow.svg'
@@ -38,26 +39,29 @@
     <footer class="search__footer">
       <nav class="search__footer__container limit-horizontal">
         <button
-          class="search__footer__container__btn btn-red "
+          class="search__footer__container__btn btn-red"
           @click="dataSearch.setAll"
         >
-          Mostrar Todos
+          All
         </button>
         <button
           class="search__footer__container__btn btn-gray"
           @click="dataSearch.setFav"
         >
-          Mostrar Favoritos
+          Favorites
         </button>
       </nav>
     </footer>
+    <ModalCardPokemonModal
+      :data-modal-card-pokemon="dataSearch.dataModalCardPokemon"
+    />
   </main>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, onMounted, nextTick } from "vue";
 import { usePokemonStore } from "../../../stores/pokemonStore";
-
+import ModalCardPokemonModal from "../../modals/cardPokemon/ModalCardPokemon.modal.vue";
 const pokemonStore = usePokemonStore();
 const props = defineProps(["dataSearch"]);
 

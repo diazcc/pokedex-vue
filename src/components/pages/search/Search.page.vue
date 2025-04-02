@@ -13,7 +13,7 @@ const pokemonStore = usePokemonStore();
 let allPokemons = ref<any[]>([]);
 const pokemonApi: any = PokemonApi;
 
-const dataSearch :any= reactive({
+const dataSearch: any = reactive({
   inputSearch: {
     value: "",
     onChange: () => {
@@ -21,10 +21,21 @@ const dataSearch :any= reactive({
     },
   },
   listFav: false,
-  listAll: true, // Por defecto muestra todos
+  listAll: true,
   arrayResultList: [],
   setAll: () => setAll(),
   setFav: () => setFav(),
+  dataModalCardPokemon: {
+    isActive: false,
+    pokemon: {
+      name:'',
+    },
+    addFav: () => {},
+    shareFriends: () => {},
+  },
+  openPokemon: (name: any) => {
+    openCardPokemon(name);
+  },
 });
 
 onMounted(() => {
@@ -66,5 +77,11 @@ function setFav() {
   );
   dataSearch.listAll = false;
   dataSearch.listFav = true;
+}
+
+function openCardPokemon(pokemon:any) {
+  console.log(pokemon);
+  
+  dataSearch.dataModalCardPokemon.isActive = true;
 }
 </script>

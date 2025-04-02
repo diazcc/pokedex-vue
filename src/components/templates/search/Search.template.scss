@@ -40,12 +40,7 @@
             &__name {
                 font-size: 1.2rem;
             }
-            &__star {
-                padding: 0.5rem;
-                width: 22px;
-                border-radius: 50%;
-                background-color: #f5f5f5;
-            }
+            
         }
     }
     &__footer {
@@ -71,6 +66,3 @@
     }
 }
 
-.limit-horizontal {
-    max-width: 40rem;
-}
