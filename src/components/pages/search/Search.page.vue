@@ -30,6 +30,7 @@ const dataSearch: any = reactive({
     pokemon: {
       name:'',
     },
+    searchPokemon :(pokemon:any) =>{},
     addFav: () => {},
     shareFriends: () => {},
   },
@@ -80,8 +81,7 @@ function setFav() {
 }
 
 function openCardPokemon(pokemon:any) {
-  console.log(pokemon);
   
-  dataSearch.dataModalCardPokemon.isActive = true;
+  dataSearch.dataModalCardPokemon.searchPokemon(pokemon);
 }
 </script>

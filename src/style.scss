@@ -233,6 +233,8 @@ $blue: #006cd8;
     text-decoration: none;
     font-family: Poppins, sans-serif;
     font-size: 0.95rem;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 * {
@@ -297,6 +299,8 @@ body {
 img {
     // min-width: 24px;
     min-height: 24px;
+    -webkit-user-drag: none;
+    user-drag: none;
 }
 
 label {
@@ -565,6 +569,7 @@ button:disabled::after {
     background-color: #f5f5f5;
     border: 2px solid #f5f5f5;
     transition: all ease-out .2s;
+    cursor: pointer;
     &:hover {
         transform: scale(1.1);
         border: 2px solid #d3d3d3;
