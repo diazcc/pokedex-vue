@@ -83,7 +83,7 @@
               (pokemonData?.name ? ' ' : 'loading-component')
             "
           >
-            {{ pokemonData?.weight }}
+            {{ pokemonData?.types?.map((typeObj:any) => capitalizeFirstLetter(typeObj.type.name)).join(', ') }}
           </p>
         </li>
       </ul>
