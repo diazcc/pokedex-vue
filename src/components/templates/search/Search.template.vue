@@ -10,27 +10,44 @@
       />
     </nav>
     <ul class="search__results limit-horizontal">
-      <li class="search__results__option" v-if="visibleResults.length == 0">
+      <li class="search__results__option" v-if="visibleResults.length === 0">
         <p class="search__results__option__name">No data</p>
       </li>
       <li
         class="search__results__option"
         v-else
         v-for="(pokemon, index) in visibleResults"
-        :key="index"
-        ref="pokemonItems"
+        :key="pokemon.name"
+        :ref="(el:any) => setPokemonItem(el, index)"
       >
-        <p class="search__results__option__name">{{ pokemon.name ?? 'UNDEFINED' }}</p>
-        <img class="search__results__option__star" src="/src/assets/images/star-gray.svg" alt="" />
+        <p class="search__results__option__name">
+          {{ capitalizeFirstLetter(pokemon.name) ?? "UNDEFINED" }}
+        </p>
+        <img
+          class="search__results__option__star"
+          :src="
+            pokemonStore.favorites.some((fav) => fav.name === pokemon.name)
+              ? '/src/assets/images/star-yellow.svg'
+              : '/src/assets/images/star-gray.svg'
+          "
+          alt="Favorito"
+          @click="pokemonStore.toggleFavorite(pokemon)"
+        />
       </li>
     </ul>
     <footer class="search__footer">
       <nav class="search__footer__container limit-horizontal">
-        <button class="search__footer__container__btn btn-red" @click="dataSearch.setFav">
-          Button
+        <button
+          class="search__footer__container__btn btn-red "
+          @click="dataSearch.setAll"
+        >
+          Mostrar Todos
         </button>
-        <button class="search__footer__container__btn btn-gray" @click="dataSearch.setAll">
-          Button
+        <button
+          class="search__footer__container__btn btn-gray"
+          @click="dataSearch.setFav"
+        >
+          Mostrar Favoritos
         </button>
       </nav>
     </footer>
@@ -39,15 +56,19 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, nextTick } from "vue";
+import { usePokemonStore } from "../../../stores/pokemonStore";
 
-
-//Template variables
+const pokemonStore = usePokemonStore();
 const props = defineProps(["dataSearch"]);
+
 const visibleResults = ref<any[]>([]);
-const itemsPerPage = 7;
+const itemsPerPage = 14; // Ahora se cargan 14 elementos en lugar de 7
 const currentIndex = ref(0);
 const pokemonItems = ref<HTMLElement[]>([]);
-
+let observer: IntersectionObserver | null = null;
+function capitalizeFirstLetter(word: string): string {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
 function loadMore() {
   if (currentIndex.value < props.dataSearch.arrayResultList.length) {
     const nextItems = props.dataSearch.arrayResultList.slice(
@@ -60,21 +81,33 @@ function loadMore() {
   }
 }
 
+function setPokemonItem(el: HTMLElement | null, index: number) {
+  if (el) {
+    pokemonItems.value[index] = el;
+  }
+}
+
 function observeLastItem() {
   nextTick(() => {
-    if (pokemonItems.value.length >= 5) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting) {
+    if (pokemonItems.value.length < 3) return;
+
+    if (observer) observer.disconnect(); // Desconectar observador anterior
+
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.boundingClientRect.top > 0) {
+            // Solo carga más si el elemento está entrando en vista desde abajo
             loadMore();
           }
-        },
-        { rootMargin: "50px", threshold: 0.5 }
-      );
-      const antepenultimoIndex = pokemonItems.value.length - 3;
-      if (pokemonItems.value[antepenultimoIndex]) {
-        observer.observe(pokemonItems.value[antepenultimoIndex]);
-      }
+        });
+      },
+      { rootMargin: "50px", threshold: 0.5 }
+    );
+
+    const antepenultimoIndex = pokemonItems.value.length - 3;
+    if (pokemonItems.value[antepenultimoIndex]) {
+      observer.observe(pokemonItems.value[antepenultimoIndex]);
     }
   });
 }
