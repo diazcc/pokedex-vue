@@ -61,6 +61,9 @@
     <ModalCardPokemonModal
       :data-modal-card-pokemon="dataSearch.dataModalCardPokemon"
     />
+    <section :class="'loader-view loader-view--' + (isLoading?'show':'hidde')">
+      <img class="loader-view__icon" src="/src/assets/images/pokemon.svg" alt="">
+    </section>
   </main>
 </template>
 
@@ -70,7 +73,7 @@ import { usePokemonStore } from "../../../stores/pokemonStore";
 import ModalCardPokemonModal from "../../modals/cardPokemon/ModalCardPokemon.modal.vue";
 const pokemonStore = usePokemonStore();
 const props = defineProps(["dataSearch"]);
-
+let isLoading :any = ref(true);
 const visibleResults = ref<any[]>([]);
 const itemsPerPage = 14; // Ahora se cargan 14 elementos en lugar de 7
 const currentIndex = ref(0);
@@ -101,13 +104,12 @@ function observeLastItem() {
   nextTick(() => {
     if (pokemonItems.value.length < 3) return;
 
-    if (observer) observer.disconnect(); // Desconectar observador anterior
+    if (observer) observer.disconnect(); 
 
     observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && entry.boundingClientRect.top > 0) {
-            // Solo carga más si el elemento está entrando en vista desde abajo
             loadMore();
           }
         });
@@ -133,7 +135,14 @@ watch(
 
 onMounted(() => {
   loadMore();
+  validationLoaderView();
 });
+
+function validationLoaderView(){
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 3000);
+}
 </script>
 
 <style scoped src="./Search.template.scss"></style>

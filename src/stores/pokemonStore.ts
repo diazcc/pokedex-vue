@@ -21,6 +21,7 @@ export const usePokemonStore = defineStore("pokemonStore", () => {
 
   // Agregar/Quitar favoritos
   function toggleFavorite(pokemon: any) {
+    
     const index = favorites.value.findIndex((fav) => fav.name === pokemon.name);
     if (index === -1) {
       favorites.value.push(pokemon);

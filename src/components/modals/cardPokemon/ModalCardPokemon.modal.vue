@@ -95,13 +95,13 @@
           class="icon__star"
           :src="
             pokemonStore.favorites.some(
-              (fav:any) => fav.name === dataModalCardPokemon.pokemon.name
+              (fav:any) => fav.name === pokemonData?.name
             )
               ? '/src/assets/images/star-yellow.svg'
               : '/src/assets/images/star-gray.svg'
           "
           alt="Favorito"
-          @click="pokemonStore.toggleFavorite(dataModalCardPokemon.pokemon)"
+          @click="pokemonStore.toggleFavorite(pokemonData)"
         />
       </nav>
     </section>
@@ -129,12 +129,6 @@ props.dataModalCardPokemon.searchPokemon = (pokemon: any) => {
   props.dataModalCardPokemon.isActive = true;
 };
 function validateUrlImage() {
-  console.log(
-    pokemonData.id
-      ? `https://www.shinyhunters.com/images/shiny/${pokemonData.id}.gif`
-      : "/src/assets/images/random.png"
-  );
-  console.log(pokemonData);
   return pokemonData.id
     ? `https://www.shinyhunters.com/images/shiny/${pokemonData.id}.gif`
     : "/src/assets/images/random.png";
@@ -148,7 +142,6 @@ async function getPokemonData(pokemon: any) {
   if (pokemon) {
     PokemonApi.getPokemon(pokemon)
       .then((response: any) => {
-        console.log(response);
         pokemonData.value = response;
       })
       .catch((error: any) => {
@@ -161,8 +154,6 @@ function clearData() {
   pokemonData.value = {};
 }
 function capitalizeFirstLetter(word: string): string {
-  console.log(word);
-  console.log(typeof word);
 
   if (word) {
     return word.charAt(0).toUpperCase() + word.slice(1);

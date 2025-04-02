@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    position: relative;
     &__navbar {
         width: 100%;
         height: 12%;
@@ -19,8 +20,8 @@
             display: flex;
             align-items: center;
             flex-direction: row;
-            gap: .5rem;
-            img{
+            gap: 0.5rem;
+            img {
                 width: 20px;
             }
         }
@@ -43,17 +44,15 @@
             border-radius: 0.5rem;
             align-items: center;
             cursor: pointer;
-            transition: all ease-out .2s;
+            transition: all ease-out 0.2s;
             &__name {
                 font-size: 1.2rem;
                 width: 100%;
                 padding: 0.5rem 1rem;
-
-                
             }
 
-            &__fav{
-                margin: 0.5rem ;
+            &__fav {
+                margin: 0.5rem;
             }
             &:hover {
                 filter: drop-shadow(0px 0px 5px rgba(131, 131, 131, 0.329));
@@ -81,5 +80,67 @@
             &__btn {
             }
         }
+    }
+}
+.loader-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $bg;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease 1s;
+    &__icon {
+        opacity: 0;
+        transition: all ease-out 0.2s;
+        width: 100px;
+        height: 100px;
+        animation: rotateAndBounce 2s linear infinite;
+    }
+
+    &--show {
+        transition: all ease-out 0.2s;
+        .loader-view__icon {
+            opacity: 1;
+        }
+    }
+    &--hidde {
+        transition: all ease-out 0.2s;
+        .loader-view__icon {
+            opacity: 0;
+            visibility: hidden;
+        }
+        visibility: hidden;
+        opacity: 1;
+    }
+}
+
+@keyframes rotateAndBounce {
+    0% {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    25% {
+        transform: rotate(90deg) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: rotate(180deg) scale(1);
+        opacity: 1;
+    }
+    75% {
+        transform: rotate(270deg) scale(1);
+        opacity: 1;
+    }
+    85% {
+        transform: rotate(330deg) scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(345deg) scale(1);
+        opacity: 1;
     }
 }
