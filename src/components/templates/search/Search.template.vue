@@ -19,13 +19,13 @@
         v-for="(pokemon, index) in visibleResults"
         :key="pokemon.name"
         :ref="(el:any) => setPokemonItem(el, index)"
-        @click="dataSearch.openPokemon(pokemon.name)"
       >
-        <p class="search__results__option__name">
+        <p class="search__results__option__name" 
+        @click="dataSearch.openPokemon(pokemon.name)">
           {{ capitalizeFirstLetter(pokemon.name) ?? "UNDEFINED" }}
         </p>
         <img
-          class="icon__star"
+          class="search__results__option__fav icon__star"
           :src="
             pokemonStore.favorites.some((fav) => fav.name === pokemon.name)
               ? '/src/assets/images/star-yellow.svg'
